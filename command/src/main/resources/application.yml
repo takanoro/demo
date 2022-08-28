@@ -1,0 +1,28 @@
+spring:
+  r2dbc:
+    url: r2dbc:postgresql://localhost:5432/transfer_command
+    password: postgres
+    username: postgres
+    properties:
+      sslMode: DISABLE
+      prepareThreshold: 0
+      preparedStatementCacheQueries: 0
+      lock_wait_timeout: 500ms
+  kafka:
+    producer:
+      bootstrap-servers: localhost:29092
+
+  flyway:
+    driver-class-name: org.postgresql.Driver
+    url: jdbc:postgresql://localhost:5432/transfer_command
+    user: postgres
+    password: postgres
+
+outbox:
+  aggregate:
+    TRANSFER:
+      topic: transfer_received
+      batch-size: 10
+
+server:
+  port: 1111
