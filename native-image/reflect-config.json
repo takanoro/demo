@@ -1,0 +1,48 @@
+[
+  {
+    "name": "ch.qos.logback.classic.Logger",
+    "allDeclaredConstructors": true
+  },
+  {
+    "name": "org.springframework.jdbc.datasource.SimpleDriverDataSource",
+    "allDeclaredConstructors": true
+  },
+  {
+    "name": "xyz.btc.demo.validator.DateRangeValidator",
+    "allDeclaredConstructors": true
+  },
+  {
+    "name": "net.javacrumbs.shedlock.provider.r2dbc.R2dbcLockProvider",
+    "allDeclaredConstructors": true
+  },
+  {
+    "name": "net.javacrumbs.shedlock.support.StorageBasedLockProvider",
+    "allDeclaredConstructors": true
+  },
+  {
+    "name": "org.flywaydb.core.internal.logging.log4j2.Log4j2LogCreator",
+    "allDeclaredConstructors": true
+  },
+  {
+    "name": "org.springframework.boot.autoconfigure.flyway.FlywayMigrationInitializer",
+    "allDeclaredConstructors": true,
+    "methods": [
+      {
+        "name": "<init>",
+        "parameterTypes": []
+      }
+    ]
+  },
+  {
+    "condition": {
+      "typeReachable": "org.flywaydb.core.internal.jdbc.JdbcUtils"
+    },
+    "name": "sun.security.provider.SHA2$SHA256",
+    "methods": [
+      {
+        "name": "<init>",
+        "parameterTypes": []
+      }
+    ]
+  }
+]

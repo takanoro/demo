@@ -1,11 +1,12 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
-    id("org.springframework.boot") version "2.7.3"
-    id("io.spring.dependency-management") version "1.0.13.RELEASE"
-    kotlin("jvm") version "1.7.10"
-    kotlin("plugin.spring") version "1.7.10"
-    kotlin("kapt") version "1.7.10"
+    id("org.springframework.boot")
+    id("io.spring.dependency-management")
+    id("org.graalvm.buildtools.native") version "0.9.20"
+    kotlin("jvm")
+    kotlin("plugin.spring")
+    kotlin("kapt")
 }
 
 group = "xyz.btc.demo"
@@ -37,8 +38,8 @@ dependencies {
     runtimeOnly("org.postgresql:r2dbc-postgresql")
 
     // Shedlock
-    implementation("net.javacrumbs.shedlock:shedlock-spring:4.41.0")
-    implementation("net.javacrumbs.shedlock:shedlock-provider-r2dbc:4.41.0")
+    implementation("net.javacrumbs.shedlock:shedlock-spring:5.2.0")
+    implementation("net.javacrumbs.shedlock:shedlock-provider-r2dbc:5.2.0")
 
     // Transport
     implementation("org.apache.kafka:kafka-streams")
@@ -53,16 +54,30 @@ dependencies {
     testImplementation("org.springframework.boot:spring-boot-starter-test") {
         exclude(module = "mockito-core")
     }
-    testImplementation("com.ninja-squad:springmockk:3.1.1")
+    testImplementation("com.ninja-squad:springmockk:4.0.2")
 }
 
-tasks.withType<KotlinCompile> {
-    kotlinOptions {
-        freeCompilerArgs = listOf("-Xjsr305=strict")
-        jvmTarget = JavaVersion.VERSION_17.toString()
-    }
+kotlin { jvmToolchain(17) }
+
+tasks.bootBuildImage {
+    builder.set("paketobuildpacks/builder:tiny")
+//    imageName.set("")
+
+    environment.set(
+        mapOf(
+            "BP_NATIVE_IMAGE" to "true",
+            "BP_NATIVE_IMAGE_BUILD_ARGUMENTS" to
+                """
+                    --verbose
+                    --no-fallback
+                    --initialize-at-build-time=org.slf4j.LoggerFactory,ch.qos.logback
+                    --trace-class-initialization=ch.qos.logback.classic.Logger 
+                    --initialize-at-run-time=io.netty
+                """.trimIndent()
+//                    -H:DynamicProxyConfigurationFiles=dynamic-proxy.json
+//                -H:DynamicProxyConfigurationResources=dynamic-proxy.json
+        )
+    )
 }
 
-tasks.withType<Test> {
-    useJUnitPlatform()
-}
+

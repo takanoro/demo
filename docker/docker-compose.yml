@@ -10,6 +10,8 @@ services:
       PGDATA: /var/lib/postgresql/data/pgdata
     ports:
       - "5432:5432"
+    networks:
+      - default
     volumes:
       - /tmp/mount:/var/lib/postgresql/data
       - ./init_db.sql:/docker-entrypoint-initdb.d/init_db.sql
@@ -22,6 +24,8 @@ services:
       ZOOKEEPER_TICK_TIME: 2000
     ports:
       - "22181:2181"
+    networks:
+      - default
   
   kafka:
     container_name: kfk_kfk
@@ -37,3 +41,21 @@ services:
       KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: PLAINTEXT:PLAINTEXT,PLAINTEXT_HOST:PLAINTEXT
       KAFKA_INTER_BROKER_LISTENER_NAME: PLAINTEXT
       KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
+    networks:
+      - default
+
+  service:
+    container_name: query_srv
+#    image: query-service:1.0.0
+    image: query:0.0.1-SNAPSHOT
+    depends_on:
+      - postgres
+    ports:
+      - "2222:2222"
+    networks:
+      - default
+
+
+networks:
+  default:
+    driver: bridge

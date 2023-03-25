@@ -1,6 +1,6 @@
 package xyz.btc.demo.repository
 
-import io.r2dbc.spi.Row
+import io.r2dbc.spi.Readable
 import kotlinx.coroutines.flow.toList
 import kotlinx.coroutines.reactive.asFlow
 import org.springframework.r2dbc.core.DatabaseClient
@@ -28,7 +28,7 @@ class TransferViewRepository(
         const val FIND_ALL_IN_RANGE_SQL =
             "select amount, datetime from transfer_amount_hour_view where datetime between :startDate and :endDate"
 
-        fun mapEntity(row: Row) =
+        fun mapEntity(row: Readable) =
             TransferViewEntity(
                 amount = row.getK("amount"),
                 datetime = row.getK("datetime")
@@ -58,5 +58,4 @@ class TransferViewRepository(
             .all()
             .asFlow()
             .toList()
-
 }

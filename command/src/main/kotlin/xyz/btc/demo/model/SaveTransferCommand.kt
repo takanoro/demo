@@ -1,12 +1,12 @@
 package xyz.btc.demo.model
 
+import jakarta.validation.constraints.Digits
+import jakarta.validation.constraints.NotNull
+import jakarta.validation.constraints.Positive
 import org.springframework.validation.annotation.Validated
 import xyz.btc.demo.validator.DateConstraint
 import java.math.BigDecimal
 import java.time.ZonedDateTime
-import javax.validation.constraints.Digits
-import javax.validation.constraints.NotNull
-import javax.validation.constraints.Positive
 
 @Validated
 data class SaveTransferCommand(

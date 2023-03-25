@@ -1,6 +1,6 @@
 package xyz.btc.demo.repository
 
-import io.r2dbc.spi.Row
+import io.r2dbc.spi.Readable
 import kotlinx.coroutines.flow.toList
 import kotlinx.coroutines.reactive.asFlow
 import org.springframework.r2dbc.core.DatabaseClient
@@ -8,7 +8,6 @@ import org.springframework.r2dbc.core.awaitRowsUpdated
 import org.springframework.stereotype.Repository
 import xyz.btc.demo.entity.OutboxEntity
 import xyz.btc.demo.util.getK
-
 
 @Repository
 class OutboxRepository(
@@ -32,7 +31,7 @@ class OutboxRepository(
                 ) returning id, aggregate, message, created_at
             """
 
-        fun mapEntity(row: Row) =
+        fun mapEntity(row: Readable) =
             OutboxEntity(
                 id = row.getK("id"),
                 aggregate = row.getK("aggregate"),

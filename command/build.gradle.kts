@@ -1,11 +1,11 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
-    id("org.springframework.boot") version "2.7.3"
-    id("io.spring.dependency-management") version "1.0.13.RELEASE"
-    kotlin("jvm") version "1.7.10"
-    kotlin("plugin.spring") version "1.7.10"
-    kotlin("kapt") version "1.7.10"
+    id("org.springframework.boot")
+    id("io.spring.dependency-management")
+    kotlin("jvm")
+    kotlin("plugin.spring")
+    kotlin("kapt")
 }
 
 group = "xyz.btc.demo"
@@ -30,14 +30,12 @@ dependencies {
 
     // Util
     implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
+    implementation("jakarta.validation:jakarta.validation-api")
 
     // Database
     implementation("org.flywaydb:flyway-core")
     runtimeOnly("org.postgresql:postgresql")
     runtimeOnly("org.postgresql:r2dbc-postgresql")
-
-    // Transport
-    implementation("org.apache.kafka:kafka-streams")
 
     // Kotlin
     implementation("io.projectreactor.kotlin:reactor-kotlin-extensions")
@@ -49,7 +47,7 @@ dependencies {
     testImplementation("org.springframework.boot:spring-boot-starter-test") {
         exclude(module = "mockito-core")
     }
-    testImplementation("com.ninja-squad:springmockk:3.1.1")
+    testImplementation("com.ninja-squad:springmockk:4.0.2")
 }
 
 tasks.withType<KotlinCompile> {

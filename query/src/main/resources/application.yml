@@ -10,7 +10,7 @@ spring:
       lock_wait_timeout: 1s
 
   kafka:
-    bootstrap-servers: localhost:29092
+    bootstrap-servers: localhost:9092
     consumer:
       group-id: transfer-query
       key-deserializer: org.apache.kafka.common.serialization.StringDeserializer

@@ -1,10 +1,10 @@
 package xyz.btc.demo.validator
 
+import jakarta.validation.Constraint
+import jakarta.validation.ConstraintValidator
+import jakarta.validation.ConstraintValidatorContext
 import xyz.btc.demo.util.Consts.UTC_ZONE_ID
 import java.time.ZonedDateTime
-import javax.validation.Constraint
-import javax.validation.ConstraintValidator
-import javax.validation.ConstraintValidatorContext
 import kotlin.reflect.KClass
 
 @Constraint(validatedBy = [DateValidator::class])

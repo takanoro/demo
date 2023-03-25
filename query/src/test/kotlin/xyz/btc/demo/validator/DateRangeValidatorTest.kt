@@ -4,6 +4,7 @@ import io.mockk.every
 import io.mockk.impl.annotations.MockK
 import io.mockk.junit5.MockKExtension
 import io.mockk.justRun
+import jakarta.validation.ConstraintValidatorContext
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.extension.ExtendWith
@@ -12,8 +13,6 @@ import org.junit.jupiter.params.provider.Arguments
 import org.junit.jupiter.params.provider.MethodSource
 import xyz.btc.demo.model.GetTransfersQuery
 import java.time.ZonedDateTime
-import javax.validation.ConstraintValidatorContext
-import javax.validation.ConstraintValidatorContext.ConstraintViolationBuilder
 
 
 @ExtendWith(MockKExtension::class)
@@ -26,7 +25,7 @@ internal class DateRangeValidatorTest {
     private lateinit var validator: DateRangeValidator
 
     @MockK
-    private lateinit var builder: ConstraintViolationBuilder
+    private lateinit var builder: ConstraintValidatorContext.ConstraintViolationBuilder
 
 
     @BeforeEach

@@ -30,7 +30,7 @@ class ApplicationConfiguration {
     }
 
     @Bean
-    fun getLockProvider(connectionFactory: ConnectionFactory): LockProvider =
+    fun lockProvider(connectionFactory: ConnectionFactory): LockProvider =
         R2dbcLockProvider(connectionFactory)
 
 }
